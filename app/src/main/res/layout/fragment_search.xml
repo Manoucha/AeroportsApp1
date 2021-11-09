@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SearchFragment">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/contact_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:layout_marginTop="100dp"
+            android:text="OACI AEREPORT"
+            android:textColor="#527C78" />
+
+        <com.paulrybitskyi.persistentsearchview.PersistentSearchView
+            android:id="@+id/persistentSearchView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="4dp"
+            android:paddingLeft="4dp"
+            android:paddingStart="4dp"
+            android:paddingRight="4dp"
+            tools:boxBackgroundColor="#3F3E42"
+            android:hint="OACI"
+            android:textSize="13dp"
+            android:textColorHint="#FFFFFF"
+            android:paddingEnd="4dp"/>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_username"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            tools:boxBackgroundColor="#3F3E42"
+
+            >
+
+            <EditText
+                android:id="@+id/oaciEt"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_gravity="center_horizontal"
+                android:hint="OACI"
+                android:textSize="13dp"
+                android:textColorHint="#FFFFFF" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+        <Button
+            android:id="@+id/btnSearch"
+            android:layout_marginTop="10dp"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:background="@drawable/buttonexchange"
+            android:layout_gravity="center_horizontal"
+            android:letterSpacing="0.35"
+            android:textColor="#838383"
+            android:text="SEARCH"
+
+            android:layout_marginBottom="20dp"
+            />
+
+
+    </LinearLayout>
+
+
+
+</FrameLayout>

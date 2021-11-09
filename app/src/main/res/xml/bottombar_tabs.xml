@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <tabs>
+        <tab
+            id="@+id/search"
+            icon="@drawable/search"
+            title="Recherche" />
+        <tab
+            id="@+id/map"
+            icon="@drawable/placeholder"
+            title="Maps" />
+        <tab
+            id="@+id/his"
+            icon="@drawable/poll"
+            title="Historique" />
+    </tabs>
+</PreferenceScreen>

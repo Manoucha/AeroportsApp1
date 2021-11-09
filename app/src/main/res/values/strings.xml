@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">AeroportsApp</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="mapbox_access_token">pk.eyJ1IjoiaW1lbjgiLCJhIjoiY2t1czN2NWd1MDZsbDJvbzBsY211bjJuYiJ9.Q4_-hPdPHjrSFn9ooN8N9Q</string>
+    <string name="click_on_polygon_toast_instruction">Click anywhere within polygon FillLayer</string>
+    <string name="toast_instruction">Tap on cards below</string>
+    <string name="rv_card_name">Location #%1$d</string>
+    <string name="rv_card_bed_info">This location has %1$d beds</string>
+</resources>
