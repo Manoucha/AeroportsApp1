@@ -8,9 +8,8 @@
         android:id="@+id/mapView1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        mapbox:mapbox_cameraTargetLat="9.102097"
-        mapbox:mapbox_cameraTargetLng="-31.904160"
-        mapbox:mapbox_cameraZoom="5" />
+
+        mapbox:mapbox_cameraZoom="0" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_on_top_of_map"

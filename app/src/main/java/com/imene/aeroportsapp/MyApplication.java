@@ -11,6 +11,7 @@ public class MyApplication extends Application {
 
     private List<Datum> liste;
     private List<DatumTaf> listeTaf;
+    private  List<com.imene.aeroportsapp.models.Airport.Datum> listeStations;
 
     public List<DatumTaf> getListeTaf() {
         return listeTaf;
@@ -18,6 +19,14 @@ public class MyApplication extends Application {
 
     public void setListeTaf(List<DatumTaf> listeTaf) {
         this.listeTaf = listeTaf;
+    }
+
+    public List<com.imene.aeroportsapp.models.Airport.Datum> getListeStations() {
+        return listeStations;
+    }
+
+    public void setListeStations(List<com.imene.aeroportsapp.models.Airport.Datum> listeStations) {
+        this.listeStations = listeStations;
     }
 
     public List<Datum> getListe() {

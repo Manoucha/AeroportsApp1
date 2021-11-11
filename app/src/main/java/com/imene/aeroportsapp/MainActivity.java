@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
                         selectedFragment = new MapFragment() ;
                         break;
                     case R.id.his:
-                        selectedFragment = new SearchFragment();
+                        selectedFragment = new HistoriqueFragment();
                         break;
 
                 }
@@ -57,10 +57,8 @@ public class MainActivity extends AppCompatActivity {
                         selectedFragment = new MapFragment() ;
                         break;
                     case R.id.his:
-                        selectedFragment = new SearchFragment() ;
+                        selectedFragment = new HistoriqueFragment() ;
                         break;
-
-
                 }
                 getSupportFragmentManager().beginTransaction().replace(R.id.contentContainer , selectedFragment).commit();
             }

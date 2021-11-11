@@ -10,10 +10,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.imene.aeroportsapp.models.metar.Datum;
 import com.mapbox.geojson.Feature;
 import com.mapbox.geojson.FeatureCollection;
 import com.mapbox.geojson.Point;
 import com.mapbox.mapboxsdk.Mapbox;
+import com.mapbox.mapboxsdk.camera.CameraPosition;
+import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
+import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
@@ -27,6 +31,10 @@ import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconImage;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconAllowOverlap;
+import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconImage;
+import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconOffset;
+
 public class MapFragment extends Fragment {
 
 
@@ -34,7 +42,16 @@ public class MapFragment extends Fragment {
     private static final String SOURCE_ID = "SOURCE_ID";
     private static final String ICON_ID = "ICON_ID";
     private static final String LAYER_ID = "LAYER_ID";
+    private static final String SYMBOL_ICON_ID = "SYMBOL_ICON_ID";
+
     private MapView mapView;
+
+    List<Datum> liste;
+
+    ArrayList<LatLng> coordinates = new ArrayList();
+    List<Feature> symbolLayerIconFeatureList = new ArrayList<>();
+    private FeatureCollection featureCollection;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -49,47 +66,42 @@ public class MapFragment extends Fragment {
         mapView.onCreate(savedInstanceState);
 
 
+        liste = ((MyApplication) getActivity().getApplication()).getListe();
+        for(Datum d : liste)
+        {
+            coordinates.add(new LatLng(d.getStation().geometry.coordinates.get(1),d.getStation().geometry.coordinates.get(0)));
+
+            symbolLayerIconFeatureList.add(Feature.fromGeometry(
+                    Point.fromLngLat(d.getStation().geometry.coordinates.get(0), d.getStation().geometry.coordinates.get(1))));
+        }
+
+
+
         mapView.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(@NonNull final MapboxMap mapboxMap) {
 
-                List<Feature> symbolLayerIconFeatureList = new ArrayList<>();
-                symbolLayerIconFeatureList.add(Feature.fromGeometry(
-                        Point.fromLngLat(-57.225365, -33.213144)));
-                symbolLayerIconFeatureList.add(Feature.fromGeometry(
-                        Point.fromLngLat(-54.14164, -33.981818)));
-                symbolLayerIconFeatureList.add(Feature.fromGeometry(
-                        Point.fromLngLat(-56.990533, -30.583266)));
 
-                mapboxMap.setStyle(new Style.Builder().fromUri("mapbox://styles/mapbox/cjf4m44iw0uza2spb3q0a7s41")
 
-// Add the SymbolLayer icon image to the map style
-                        .withImage(ICON_ID, BitmapFactory.decodeResource(
-                                getActivity().getResources(), R.drawable.mapbox_marker_icon_default))
-
-// Adding a GeoJson source for the SymbolLayer icons.
-                        .withSource(new GeoJsonSource(SOURCE_ID,
-                                FeatureCollection.fromFeatures(symbolLayerIconFeatureList)))
-
-// Adding the actual SymbolLayer to the map style. An offset is added that the bottom of the red
-// marker icon gets fixed to the coordinate, rather than the middle of the icon being fixed to
-// the coordinate point. This is offset is not always needed and is dependent on the image
-// that you use for the SymbolLayer icon.
-                        .withLayer(new SymbolLayer(LAYER_ID, SOURCE_ID)
-                                .withProperties(
-                                        iconImage(ICON_ID),
-                                        iconAllowOverlap(true),
-                                        iconIgnorePlacement(true)
-                                )
-                        ), new Style.OnStyleLoaded() {
+                mapboxMap.setStyle(Style.SATELLITE_STREETS, new Style.OnStyleLoaded() {
                     @Override
                     public void onStyleLoaded(@NonNull Style style) {
 
-// Map is set up and the style has loaded. Now you can add additional data or make other map adjustments.
 
+                        featureCollection = FeatureCollection.fromFeatures(symbolLayerIconFeatureList);
+
+                        initMarkerIcons(style);
+                        //mapboxMap.getMarkers().get(0).getPosition();
+
+                        mapboxMap.setCameraPosition(new CameraPosition.Builder()
+                                .target(coordinates.get(0))
+                                .zoom(10)
+                                .build());
 
                     }
                 });
+
+
             }
         });
 
@@ -97,7 +109,27 @@ public class MapFragment extends Fragment {
     }
 
 
+    private void initFeatureCollection() {
+        List<Feature> featureList = new ArrayList<>();
+        if (featureCollection != null) {
+            for (LatLng latLng : coordinates) {
+                featureList.add(Feature.fromGeometry(Point.fromLngLat(latLng.getLongitude(), latLng.getLatitude())));
+            }
+            featureCollection = FeatureCollection.fromFeatures(featureList);
+        }
+    }
 
+    private void initMarkerIcons(@NonNull Style loadedMapStyle) {
+        loadedMapStyle.addImage(SYMBOL_ICON_ID, BitmapFactory.decodeResource(
+                getContext().getResources(),  R.drawable.mapbox_marker_icon_default));
+
+        loadedMapStyle.addSource(new GeoJsonSource(SOURCE_ID, featureCollection));
+        loadedMapStyle.addLayer(new SymbolLayer(LAYER_ID, SOURCE_ID).withProperties(
+                iconImage(SYMBOL_ICON_ID),
+                iconAllowOverlap(true),
+                iconOffset(new Float[] {0f, -4f})
+        ));
+    }
     @Override
     public void onResume() {
         super.onResume();

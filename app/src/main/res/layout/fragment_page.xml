@@ -14,12 +14,17 @@
     android:layout_marginTop="20dp"
     android:gravity="center">
 
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content">
 
     <TextView
+
         android:id="@+id/textViexTest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
+        android:layout_gravity="center"
         android:layout_margin="6dp"
         android:fontFamily="@font/bubble"
         android:text="Airport CDG"
@@ -27,6 +32,12 @@
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="@+id/metar"
         app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.cardview.widget.CardView>
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/airport_3"/>
 
 
     <androidx.cardview.widget.CardView
@@ -113,7 +124,7 @@
                         android:layout_width="30dp"
                         android:layout_height="20dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/mapbox_marker_icon_default"/>
+                        android:src="@drawable/data_storage"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -206,7 +217,7 @@
                         android:layout_width="30dp"
                         android:layout_height="20dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/mapbox_marker_icon_default"/>
+                        android:src="@drawable/status"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -252,7 +263,7 @@
                         android:layout_width="30dp"
                         android:layout_height="20dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/mapbox_marker_icon_default"/>
+                        android:src="@drawable/location"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -360,7 +371,7 @@
                         android:layout_width="30dp"
                         android:layout_height="20dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/mapbox_marker_icon_default"/>
+                        android:src="@drawable/temp"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -405,7 +416,7 @@
                         android:layout_width="30dp"
                         android:layout_height="20dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/mapbox_marker_icon_default"/>
+                        android:src="@drawable/pin"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -452,7 +463,7 @@
                         android:layout_width="30dp"
                         android:layout_height="20dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/mapbox_marker_icon_default"/>
+                        android:src="@drawable/pression"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -498,7 +509,7 @@
                         android:layout_width="30dp"
                         android:layout_height="20dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/mapbox_marker_icon_default"/>
+                        android:src="@drawable/wind"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -544,7 +555,7 @@
                         android:layout_width="30dp"
                         android:layout_height="20dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/mapbox_marker_icon_default"/>
+                        android:src="@drawable/visibility"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -593,7 +604,7 @@
                         android:layout_width="30dp"
                         android:layout_height="20dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/mapbox_marker_icon_default"/>
+                        android:src="@drawable/cloud"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -653,9 +664,10 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#74B7C3C5"
+                android:background="#97290C40"
+                android:layout_margin="10dp"
 
-                    android:layout_margin="6dp"
+                android:padding="10dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -665,6 +677,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="France, CDG"
+                    android:textColor="@color/white"
                     android:textStyle="bold"
                     android:layout_marginEnd="10dp"
                     android:fontFamily="@font/annie_use_your_telescope"/>
@@ -677,7 +690,6 @@
             android:layout_height="match_parent"
             android:layout_margin="5dp"/>
         </LinearLayout>
-
 
 </LinearLayout>
 </ScrollView>

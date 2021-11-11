@@ -7,7 +7,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
         android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/globe"/>
 
         <TextView
             android:id="@+id/contact_name"
@@ -15,8 +23,10 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_gravity="center"
-            android:layout_marginTop="100dp"
-            android:text="OACI AEREPORT"
+            android:layout_marginTop="20dp"
+            android:textSize="20dp"
+            android:fontFamily="@font/bubble"
+            android:text="Quel aeroport cherchez vous ?"
             android:textColor="#527C78" />
 
 
@@ -52,8 +62,9 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_gravity="center_vertical"
+                    android:background="@drawable/buttonexchange"
+
                     android:text="+"
-                    android:background="@color/colorAccent"
 
                     />
             </LinearLayout>

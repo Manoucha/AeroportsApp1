@@ -3,6 +3,8 @@ package com.imene.aeroportsapp;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -30,7 +32,10 @@ import com.imene.aeroportsapp.service.AeroportService;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -48,6 +53,128 @@ public class PageFragment extends Fragment {
     FrameLayout simpleFrameLayout;
     TextView tv,tvCountry,tvICAO,tvIATA,tvStatus,tvLOCATION,tvVFR,tvTemperature,tvDewpoint,tvpression,tvWind,tvVisibility,tvCloud,tvTafTextG;
     List<Datum> liste;
+    List<com.imene.aeroportsapp.models.Airport.Datum> listeStations = new List<com.imene.aeroportsapp.models.Airport.Datum>() {
+        @Override
+        public int size() {
+            return 0;
+        }
+
+        @Override
+        public boolean isEmpty() {
+            return false;
+        }
+
+        @Override
+        public boolean contains(@Nullable Object o) {
+            return false;
+        }
+
+        @NonNull
+        @Override
+        public Iterator<com.imene.aeroportsapp.models.Airport.Datum> iterator() {
+            return null;
+        }
+
+        @NonNull
+        @Override
+        public Object[] toArray() {
+            return new Object[0];
+        }
+
+        @NonNull
+        @Override
+        public <T> T[] toArray(@NonNull T[] ts) {
+            return null;
+        }
+
+        @Override
+        public boolean add(com.imene.aeroportsapp.models.Airport.Datum datum) {
+            return false;
+        }
+
+        @Override
+        public boolean remove(@Nullable Object o) {
+            return false;
+        }
+
+        @Override
+        public boolean containsAll(@NonNull Collection<?> collection) {
+            return false;
+        }
+
+        @Override
+        public boolean addAll(@NonNull Collection<? extends com.imene.aeroportsapp.models.Airport.Datum> collection) {
+            return false;
+        }
+
+        @Override
+        public boolean addAll(int i, @NonNull Collection<? extends com.imene.aeroportsapp.models.Airport.Datum> collection) {
+            return false;
+        }
+
+        @Override
+        public boolean removeAll(@NonNull Collection<?> collection) {
+            return false;
+        }
+
+        @Override
+        public boolean retainAll(@NonNull Collection<?> collection) {
+            return false;
+        }
+
+        @Override
+        public void clear() {
+
+        }
+
+        @Override
+        public com.imene.aeroportsapp.models.Airport.Datum get(int i) {
+            return null;
+        }
+
+        @Override
+        public com.imene.aeroportsapp.models.Airport.Datum set(int i, com.imene.aeroportsapp.models.Airport.Datum datum) {
+            return null;
+        }
+
+        @Override
+        public void add(int i, com.imene.aeroportsapp.models.Airport.Datum datum) {
+
+        }
+
+        @Override
+        public com.imene.aeroportsapp.models.Airport.Datum remove(int i) {
+            return null;
+        }
+
+        @Override
+        public int indexOf(@Nullable Object o) {
+            return 0;
+        }
+
+        @Override
+        public int lastIndexOf(@Nullable Object o) {
+            return 0;
+        }
+
+        @NonNull
+        @Override
+        public ListIterator<com.imene.aeroportsapp.models.Airport.Datum> listIterator() {
+            return null;
+        }
+
+        @NonNull
+        @Override
+        public ListIterator<com.imene.aeroportsapp.models.Airport.Datum> listIterator(int i) {
+            return null;
+        }
+
+        @NonNull
+        @Override
+        public List<com.imene.aeroportsapp.models.Airport.Datum> subList(int i, int i1) {
+            return null;
+        }
+    } ;
     final Gson gson = new Gson();
 
     LinearLayout linearLayoutVFR;
@@ -79,8 +206,10 @@ public class PageFragment extends Fragment {
         liste = ((MyApplication) getActivity().getApplication()).getListe();
         //RV TAFS
 
-        rvTafs = result.findViewById(R.id.rvTafs);
+        //liste station =
 
+        rvTafs = result.findViewById(R.id.rvTafs);
+            listeStations = ((MyApplication) getActivity().getApplication()).getListeStations();
         // 4 - Get widgets from layout and serialise it
         ScrollView rootView= (ScrollView) result.findViewById(R.id.fragment_page_rootview);
 
@@ -115,8 +244,9 @@ public class PageFragment extends Fragment {
         //***********Données Station
         tvCountry.setText(liste.get(position).getStation().getLocation());
         tvICAO.setText(liste.get(position).getIcao());
-        tvIATA.setText("pas encore");
-        tvStatus.setText("pas encore");
+
+//        tvIATA.setText(listeStations.get(position).getIata());
+       // tvStatus.setText(listeStations.get(position).getStatus());
         tvLOCATION.setText(liste.get(position).getStation().getGeometry().getCoordinates().toString());
 
         //***************** Données Metar

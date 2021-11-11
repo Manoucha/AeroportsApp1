@@ -2,7 +2,7 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:id="@+id/single_location_cardview"
     android:layout_marginEnd="8dp"
     android:layout_marginLeft="8dp"
@@ -17,46 +17,7 @@
     android:layout_height="match_parent"
     android:layout_marginBottom="20dp"
     android:orientation="vertical">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="10dp"
-        android:orientation="horizontal">
-        <LinearLayout
-            android:layout_width="90dp"
-            android:layout_height="wrap_content"
-            android:background="#E2DEEA"
-            android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Text"
-                android:fontFamily="@font/annie_use_your_telescope"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#E2DEEA"
-            android:layout_marginStart="40dp"
-
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/tvtafTxt"
-                android:layout_marginStart="5dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="France, CDG"
-                android:textStyle="bold"
-                android:layout_marginEnd="10dp"
-                android:fontFamily="@font/annie_use_your_telescope"/>
-        </LinearLayout>
-
-    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -99,6 +60,7 @@
 
     </LinearLayout>
     <LinearLayout
+        android:id="@+id/lltaftype"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"

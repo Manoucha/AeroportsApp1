@@ -33,9 +33,9 @@ public class AeroportService {
 
     }
 
-    public void searchAeropor(String icao, Callback callback) {
+    public void searchStation(String icao, Callback callback) {
         Request request = new Request.Builder()
-                .url("https://api.checkwx.com/metar/%22"+icao+"%22/decoded?x-api-key=49bcf08bee2a4b6fba835769a8")
+                .url("https://api.checkwx.com/station/"+icao+"/decoded?x-api-key=49bcf08bee2a4b6fba835769a8")
                 .build();
 
         client.newCall(request).enqueue(callback);

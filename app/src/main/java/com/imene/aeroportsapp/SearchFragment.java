@@ -4,7 +4,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -19,8 +18,9 @@ import android.widget.EditText;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
+import com.imene.aeroportsapp.models.Airport.Datum;
+import com.imene.aeroportsapp.models.Airport.Example;
 import com.imene.aeroportsapp.models.metar.Data;
-import com.imene.aeroportsapp.models.metar.Datum;
 import com.imene.aeroportsapp.models.taf.DataTaf;
 import com.imene.aeroportsapp.models.taf.DatumTaf;
 import com.imene.aeroportsapp.service.AeroportService;
@@ -77,6 +77,7 @@ public class SearchFragment extends Fragment  {
             @Override
             public void onClick(View view) {
                 String icao = editText.getText().toString();
+
                 stringArrayList.add(icao);
                 editText.getText().clear();
 
@@ -93,9 +94,17 @@ public class SearchFragment extends Fragment  {
             @Override
             public void onClick(View view) {
 
-                String icao = editText.getText().toString();
+                String icao = "";
+                for(int i=0; i<stringArrayList.size();i++)
+                {
+                    icao += stringArrayList.get(i).concat(",");
 
+                }
+                StringBuffer sb= new StringBuffer(icao);
+                sb.deleteCharAt(sb.length()-1);
+                icao = sb.toString();
 
+                System.out.println("icao avant de rech "+icao );
                 AeroportService service = new AeroportService();
 
 
@@ -111,14 +120,13 @@ public class SearchFragment extends Fragment  {
                             throw new IOException("Unexpected code " + response);
                         } else {
 
-                            System.out.println("name : "+icao);
 
                             Data data = gson.fromJson(response.body().string(), Data.class);
 
-                            List<Datum> liste = new ArrayList<>();
+                            List<com.imene.aeroportsapp.models.metar.Datum> liste = new ArrayList<>();
 
 
-                                for (Datum d : data.getData())
+                                for (com.imene.aeroportsapp.models.metar.Datum d : data.getData())
                                 {
                                     liste.add(d);
                                     Log.d("stattion",d.getStation().name);
@@ -185,6 +193,44 @@ public class SearchFragment extends Fragment  {
 
                     }
                 });
+
+                service.searchStation(icao, new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+
+                    }
+
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        if (!response.isSuccessful()) {
+                            throw new IOException("Unexpected code " + response);
+                        } else {
+
+
+                            Example data = gson.fromJson(response.body().string(), Example.class);
+
+                            List<Datum> listeStations = new ArrayList<>();
+
+
+
+                            for (Datum d : data.getData())
+                            {
+                                listeStations.add(d);
+                                Log.d("status  ",d.getIata());
+                            }
+
+                            ((MyApplication) getActivity().getApplication()).setListeStations(listeStations);
+
+
+                            Fragment myFragment = new RecylerViewMapFragment();
+                            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.contentContainer ,  myFragment).commit();
+
+
+                        }
+
+                    }
+                });
+
 
             }
         });

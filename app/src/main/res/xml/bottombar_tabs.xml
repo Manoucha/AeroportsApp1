@@ -3,15 +3,15 @@
     <tabs>
         <tab
             id="@+id/search"
-            icon="@drawable/search"
-            title="Recherche" />
+            icon="@drawable/airport_5"
+            title="Aeroport" />
         <tab
             id="@+id/map"
-            icon="@drawable/placeholder"
+            icon="@drawable/map_2"
             title="Maps" />
         <tab
             id="@+id/his"
-            icon="@drawable/poll"
+            icon="@drawable/historique"
             title="Historique" />
     </tabs>
 </PreferenceScreen>
