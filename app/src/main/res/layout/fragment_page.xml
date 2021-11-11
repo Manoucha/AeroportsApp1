@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     tools:context=".PageFragment"
-    android:layout_height="match_parent">
+    android:layout_height="2000dp">
 <LinearLayout
 
     android:layout_width="match_parent"
@@ -628,12 +628,7 @@
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardviewTaf"
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:layout_margin="10dp"
-        android:padding="10dp">
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -655,22 +650,33 @@
                     app:layout_constraintHorizontal_bias="0.437"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.4" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#74B7C3C5"
+
+                    android:layout_margin="6dp"
+                android:orientation="horizontal">
+
+                <TextView
+
+                    android:id="@+id/tvTafTextG"
+                    android:layout_marginStart="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="France, CDG"
+                    android:textStyle="bold"
+                    android:layout_marginEnd="10dp"
+                    android:fontFamily="@font/annie_use_your_telescope"/>
+            </LinearLayout>
 
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvTafs"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_margin="5dp"/>
         </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
-
-
-
-
-
-
 
 
 </LinearLayout>

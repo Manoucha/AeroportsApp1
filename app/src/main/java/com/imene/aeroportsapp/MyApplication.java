@@ -3,19 +3,20 @@ package com.imene.aeroportsapp;
 import android.app.Application;
 
 import com.imene.aeroportsapp.models.metar.Datum;
+import com.imene.aeroportsapp.models.taf.DatumTaf;
 
 import java.util.List;
 
 public class MyApplication extends Application {
 
     private List<Datum> liste;
-    private List<Datum> listeTaf;
+    private List<DatumTaf> listeTaf;
 
-    public List<Datum> getListeTaf() {
+    public List<DatumTaf> getListeTaf() {
         return listeTaf;
     }
 
-    public void setListeTaf(List<Datum> listeTaf) {
+    public void setListeTaf(List<DatumTaf> listeTaf) {
         this.listeTaf = listeTaf;
     }
 

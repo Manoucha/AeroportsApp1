@@ -159,18 +159,22 @@ public class SearchFragment extends Fragment  {
 
                             DataTaf data = gson.fromJson(response.body().string(), DataTaf.class);
 
-                            List<DatumTaf> liste = new ArrayList<>();
+                            List<DatumTaf> listeTAf = new ArrayList<>();
 
 
                             for (DatumTaf d : data.getData())
                             {
-                                liste.add(d);
+                                listeTAf.add(d);
                                 Log.d("visibility ",d.getForecast().get(0).getVisibility().toString());
                                 Log.d("stattion from taf ",d.getStation().getName());
 
                             }
 
+                            ((MyApplication) getActivity().getApplication()).setListeTaf(listeTAf);
+
                             System.out.println("taf : "+data.getData().toString());
+                            System.out.println("liste taf size  : "+ ((MyApplication) getActivity().getApplication()).getListeTaf().size());
+
 
 
                             Fragment myFragment = new RecylerViewMapFragment();

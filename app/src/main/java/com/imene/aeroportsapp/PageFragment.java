@@ -7,6 +7,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import android.util.Log;
@@ -39,9 +41,12 @@ public class PageFragment extends Fragment {
     private static final String KEY_POSITION="position";
     private static final String KEY_COLOR="color";
 
+    //recyclerview tafs
+
+    RecyclerView rvTafs ;
     //pager dans le fragment
     FrameLayout simpleFrameLayout;
-    TextView tv,tvCountry,tvICAO,tvIATA,tvStatus,tvLOCATION,tvVFR,tvTemperature,tvDewpoint,tvpression,tvWind,tvVisibility,tvCloud;
+    TextView tv,tvCountry,tvICAO,tvIATA,tvStatus,tvLOCATION,tvVFR,tvTemperature,tvDewpoint,tvpression,tvWind,tvVisibility,tvCloud,tvTafTextG;
     List<Datum> liste;
     final Gson gson = new Gson();
 
@@ -72,7 +77,9 @@ public class PageFragment extends Fragment {
         // 3 - Get layout of PageFragment
         View result = inflater.inflate(R.layout.fragment_page, container, false);
         liste = ((MyApplication) getActivity().getApplication()).getListe();
+        //RV TAFS
 
+        rvTafs = result.findViewById(R.id.rvTafs);
 
         // 4 - Get widgets from layout and serialise it
         ScrollView rootView= (ScrollView) result.findViewById(R.id.fragment_page_rootview);
@@ -130,9 +137,10 @@ public class PageFragment extends Fragment {
         tvWind = result.findViewById(R.id.tvWind);
         tvVisibility = result.findViewById(R.id.tvVisibility);
         tvCloud = result.findViewById(R.id.tvCloud);
+        tvTafTextG = result.findViewById(R.id.tvTafTextG);
 
 
-
+        tvTafTextG.setText(((MyApplication) getActivity().getApplication()).getListeTaf().get(position).getRaw_text());
         tvVFR.setText(liste.get(position).getFlight_category());
         if(liste.get(position).getFlight_category().equals("MVFR"))
         {
@@ -155,8 +163,13 @@ public class PageFragment extends Fragment {
 
         //***********************************************
 
-        //textView.setText("Page numéro "+position);
 
+
+        AdapterTaf adapter = new AdapterTaf(((MyApplication) getActivity().getApplication()).getListeTaf().get(position),position);
+        // Attach the adapter to the recyclerview to populate items
+        rvTafs.setAdapter(adapter);
+        // Set layout manager to position the items
+        rvTafs.setLayoutManager(new LinearLayoutManager(getContext()));
         Log.e(getClass().getSimpleName(), "onCreateView called for fragment number "+position);
 
         return result;
