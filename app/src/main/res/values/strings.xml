@@ -1,10 +1,41 @@
 <resources>
-    <string name="app_name">Airport Finder</string>
+    <string name="app_name" translatable="false">Airport Finder</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="mapbox_access_token">pk.eyJ1IjoiaW1lbjgiLCJhIjoiY2t1czN2NWd1MDZsbDJvbzBsY211bjJuYiJ9.Q4_-hPdPHjrSFn9ooN8N9Q</string>
-    <string name="click_on_polygon_toast_instruction">Click anywhere within polygon FillLayer</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="mapbox_access_token" translatable="false">pk.eyJ1IjoiaW1lbjgiLCJhIjoiY2t1czN2NWd1MDZsbDJvbzBsY211bjJuYiJ9.Q4_-hPdPHjrSFn9ooN8N9Q</string>
+    <string name="click_on_polygon_toast_instruction" translatable="false">Click anywhere within polygon FillLayer</string>
     <string name="toast_instruction">Tap on cards below</string>
-    <string name="rv_card_name">Location #%1$d</string>
-    <string name="rv_card_bed_info">This location has %1$d beds</string>
+    <string name="rv_card_name" translatable="false">Location #%1$d</string>
+    <string name="rv_card_bed_info" translatable="false">This location has %1$d beds</string>
+
+    <string name="splash">Yours to discover</string>
+    <string name="bot1">Airport</string>
+    <string name="bot2">Map</string>
+    <string name="bot3">History</string>
+    <string name="historique">Airports recently viewed</string>
+
+    <string name="station">STATION</string>
+    <string name="metar">METAR</string>
+    <string name="taf">TAF</string>
+    <string name="Country">Country</string>
+    <string name="oaci">ICAO</string>
+    <string name="iata">IATA</string>
+    <string name="statut">Status</string>
+    <string name="location">Location</string>
+    <string name="temp">Temp</string>
+    <string name="dewpoints">Dewpoints</string>
+    <string name="pression">Pression</string>
+    <string name="wind">Wind</string>
+    <string name="visibilite">Visibility</string>
+    <string name="cloud">Cloud</string>
+    <string name="question">What airport are you looking for ?</string>
+    <string name="searchbtn">Search</string>
+    <string name="forcast">Forcast period</string>
+    <string name="forcastype">Forcast type</string>
+    <string name="winds">Winds</string>
+    <string name="ceiling">Ceiling</string>
+    <string name="clouds">Clouds</string>
+    <string name="weather">Weather</string>
+
+
 </resources>

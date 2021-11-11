@@ -26,7 +26,7 @@
             android:layout_marginTop="20dp"
             android:textSize="20dp"
             android:fontFamily="@font/bubble"
-            android:text="Quel aeroport cherchez vous ?"
+            android:text="@string/question"
             android:textColor="#527C78" />
 
 
@@ -95,7 +95,7 @@
             android:layout_gravity="center_horizontal"
             android:letterSpacing="0.35"
             android:textColor="#838383"
-            android:text="SEARCH"
+            android:text="@string/searchbtn"
             android:visibility="invisible"
             android:layout_marginBottom="20dp"
             />

@@ -4,14 +4,14 @@
         <tab
             id="@+id/search"
             icon="@drawable/airport_5"
-            title="Aeroport" />
+            title="@string/bot1" />
         <tab
             id="@+id/map"
             icon="@drawable/map_2"
-            title="Maps" />
+            title="@string/bot2" />
         <tab
             id="@+id/his"
             icon="@drawable/historique"
-            title="Historique" />
+            title="@string/bot3" />
     </tabs>
 </PreferenceScreen>

@@ -30,7 +30,7 @@
         android:layout_marginTop="20dp"
         android:textSize="30dp"
         android:fontFamily="@font/bubble"
-        android:text="Find all data you want"
+        android:text="@string/splash"
         android:textColor="#527C78" />
 
 </LinearLayout>

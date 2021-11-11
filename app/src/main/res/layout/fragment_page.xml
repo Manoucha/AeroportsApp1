@@ -55,7 +55,7 @@
             >
             <TextView
                 android:layout_width="wrap_content"
-                android:text="Station"
+                android:text="@string/station"
                 android:textSize="20dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
@@ -82,7 +82,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Country"
+                    android:text="@string/Country"
                     android:layout_marginEnd="10dp"
                     android:fontFamily="@font/annie_use_your_telescope"/>
                 </LinearLayout>
@@ -128,7 +128,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="ICAO"
+                        android:text="@string/oaci"
                         android:layout_marginEnd="10dp"
                         android:fontFamily="@font/annie_use_your_telescope"/>
                 </LinearLayout>
@@ -175,7 +175,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="IATA"
+                        android:text="@string/iata"
                         android:layout_marginEnd="10dp"
                         android:fontFamily="@font/annie_use_your_telescope"/>
                 </LinearLayout>
@@ -221,7 +221,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Status"
+                        android:text="@string/statut"
                         android:layout_marginEnd="10dp"
                         android:fontFamily="@font/annie_use_your_telescope"/>
                 </LinearLayout>
@@ -267,7 +267,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Location"
+                        android:text="@string/location"
                         android:layout_marginEnd="10dp"
                         android:fontFamily="@font/annie_use_your_telescope"/>
                 </LinearLayout>
@@ -345,7 +345,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:fontFamily="@font/bubble"
-                    android:text="Metar"
+                    android:text="@string/metar"
                     android:textSize="20dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -375,7 +375,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Temp"
+                        android:text="@string/temp"
                         android:fontFamily="@font/annie_use_your_telescope"/>
                 </LinearLayout>
 
@@ -420,7 +420,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Dewpoint"
+                        android:text="@string/dewpoints"
                         android:layout_marginEnd="10dp"
                         android:fontFamily="@font/annie_use_your_telescope"/>
                 </LinearLayout>
@@ -467,7 +467,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Pression"
+                        android:text="@string/pression"
                         android:layout_marginEnd="10dp"
                         android:fontFamily="@font/annie_use_your_telescope"/>
                 </LinearLayout>
@@ -513,7 +513,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Wind"
+                        android:text="@string/wind"
                         android:layout_marginEnd="10dp"
                         android:fontFamily="@font/annie_use_your_telescope"/>
                 </LinearLayout>
@@ -559,7 +559,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Visibility"
+                        android:text="@string/visibilite"
                         android:layout_marginEnd="10dp"
                         android:fontFamily="@font/annie_use_your_telescope"/>
                 </LinearLayout>
@@ -608,7 +608,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Cloud"
+                        android:text="@string/cloud"
                         android:layout_marginEnd="10dp"
                         android:fontFamily="@font/annie_use_your_telescope"/>
                 </LinearLayout>
@@ -653,7 +653,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:fontFamily="@font/bubble"
-                    android:text="Taf"
+                    android:text="@string/taf"
                     android:textSize="20dp"
                     android:layout_marginTop="20dp"
                     app:layout_constraintBottom_toBottomOf="parent"
