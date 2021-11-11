@@ -1,19 +1,38 @@
 package com.imene.aeroportsapp;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.google.android.material.tabs.TabLayout;
+import com.google.gson.Gson;
+import com.imene.aeroportsapp.models.metar.Data;
+import com.imene.aeroportsapp.models.metar.Datum;
+import com.imene.aeroportsapp.models.taf.DataTaf;
+import com.imene.aeroportsapp.models.taf.DatumTaf;
+import com.imene.aeroportsapp.service.AeroportService;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 public class PageFragment extends Fragment {
     // 1 - Create keys for our Bundle
@@ -21,9 +40,12 @@ public class PageFragment extends Fragment {
     private static final String KEY_COLOR="color";
 
     //pager dans le fragment
-    TabLayout tabLayout;
-    ViewPager viewPager;
+    FrameLayout simpleFrameLayout;
+    TextView tv,tvCountry,tvICAO,tvIATA,tvStatus,tvLOCATION,tvVFR,tvTemperature,tvDewpoint,tvpression,tvWind,tvVisibility,tvCloud;
+    List<Datum> liste;
+    final Gson gson = new Gson();
 
+    LinearLayout linearLayoutVFR;
 
     public PageFragment() { }
 
@@ -49,47 +71,90 @@ public class PageFragment extends Fragment {
 
         // 3 - Get layout of PageFragment
         View result = inflater.inflate(R.layout.fragment_page, container, false);
+        liste = ((MyApplication) getActivity().getApplication()).getListe();
 
-
-        // tablayout de fragment
-
-        tabLayout=(TabLayout)result.findViewById(R.id.tabLayout);
-        viewPager=(ViewPager)result.findViewById(R.id.viewPager);
-
-        //***********************************************
-
-        tabLayout.addTab(tabLayout.newTab().setText("Android"));
-        tabLayout.addTab(tabLayout.newTab().setText("Play"));
-        tabLayout.addTab(tabLayout.newTab().setText("Favourite"));
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-        final MyAdapter adapter = new MyAdapter(getContext(),getActivity().getSupportFragmentManager(), tabLayout.getTabCount());
-        viewPager.setAdapter(adapter);
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
-            }
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-            }
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-            }
-        });
-
-        //***********************************************
 
         // 4 - Get widgets from layout and serialise it
-        ConstraintLayout rootView= (ConstraintLayout) result.findViewById(R.id.fragment_page_rootview);
-        //TextView textView= (TextView) result.findViewById(R.id.fragment_page_title);
+        ScrollView rootView= (ScrollView) result.findViewById(R.id.fragment_page_rootview);
 
         // 5 - Get data from Bundle (created in method newInstance)
         int position = getArguments().getInt(KEY_POSITION, -1);
         int color = getArguments().getInt(KEY_COLOR, -1);
 
+
+
+        //***********************get taf ************************
+
+        AeroportService service = new AeroportService();
+
+
+        //***********************************************
+
+
+
         // 6 - Update widgets with it
         rootView.setBackgroundColor(color);
+        tv = result.findViewById(R.id.textViexTest);
+
+        tvCountry = result.findViewById(R.id.tvCountry);
+        tvICAO = result.findViewById(R.id.tvICAO);
+        tvIATA = result.findViewById(R.id.tvIATA);
+        tvStatus = result.findViewById(R.id.tvStatus);
+        tvLOCATION = result.findViewById(R.id.tvLOCATION);
+
+
+        tv.setText(liste.get(position).getStation().getName());
+
+        //***********Données Station
+        tvCountry.setText(liste.get(position).getStation().getLocation());
+        tvICAO.setText(liste.get(position).getIcao());
+        tvIATA.setText("pas encore");
+        tvStatus.setText("pas encore");
+        tvLOCATION.setText(liste.get(position).getStation().getGeometry().getCoordinates().toString());
+
+        //***************** Données Metar
+
+       // linearLayoutVFR,tvVFR,tvTemperature,tvDewpoint,tvpression,tvWind,tvVisibility,tvCloud
+
+
+
+        linearLayoutVFR = result.findViewById(R.id.linearLayoutVFR);
+        tvVFR = result.findViewById(R.id.tvVFR);
+
+
+
+
+        tvTemperature = result.findViewById(R.id.tvTemperature);
+        tvDewpoint = result.findViewById(R.id.tvDewpoint);
+        tvpression = result.findViewById(R.id.tvpression);
+        tvWind = result.findViewById(R.id.tvWind);
+        tvVisibility = result.findViewById(R.id.tvVisibility);
+        tvCloud = result.findViewById(R.id.tvCloud);
+
+
+
+        tvVFR.setText(liste.get(position).getFlight_category());
+        if(liste.get(position).getFlight_category().equals("MVFR"))
+        {
+            linearLayoutVFR.setBackgroundColor(Color.RED);
+        }
+        tvTemperature.setText(liste.get(position).getTemperature().celsius+" °C"+" ( "+liste.get(position).getTemperature().fahrenheit+" °F )");
+        tvDewpoint.setText(liste.get(position).getDewpoint().celsius+" °C"+" ( "+liste.get(position).getDewpoint().fahrenheit+" °F )");
+        tvpression.setText(liste.get(position).getBarometer().getHg()+" inches Hg ( "+liste.get(position).getBarometer().getMb()+ " mb )");
+        tvWind.setText(liste.get(position).getWind().getDegrees()+" degrees "+"at "+ liste.get(position).getWind().getSpeed_mph() +" MPH ");
+        //30 sm ( 48 km)
+
+        String beforeFirstDot = liste.get(position).getVisibility().getMeters().split("\\,")[0];
+
+        tvVisibility.setText(liste.get(position).getVisibility().getMiles()+" sm ( "+beforeFirstDot+" km )");
+
+        //few clouds at 200 feet AGL
+
+        tvCloud.setText(liste.get(position).getClouds().get(0).getCode()+" clouds at "+liste.get(position).getClouds().get(0).getBase_feet_agl()+" feet AGL");
+
+
+        //***********************************************
+
         //textView.setText("Page numéro "+position);
 
         Log.e(getClass().getSimpleName(), "onCreateView called for fragment number "+position);

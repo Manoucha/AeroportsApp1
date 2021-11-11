@@ -2,38 +2,100 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="300dp"
-    android:layout_height="wrap_content"
+    android:layout_height="150dp"
     android:id="@+id/single_location_cardview"
     android:layout_marginEnd="8dp"
     android:layout_marginLeft="8dp"
     android:layout_marginRight="8dp"
     android:layout_marginStart="8dp"
+    android:background="#D6EEF1"
+
     android:layout_marginTop="8dp">
 
     <LinearLayout
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#D6EEF1"
+        android:layout_gravity="center_vertical"
+        android:weightSum="5"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="100dp"
+            android:layout_weight="2"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/airport_2"/>
+    <LinearLayout
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:background="@color/mapboxYellowFaint"
-        android:gravity="center_horizontal"
+        android:layout_weight="3"
+
         android:orientation="vertical">
 
-        <TextView
+    <TextView
             android:id="@+id/location_title_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:textColor="@color/mapboxPurpleDark10"
-            android:textSize="20sp"/>
-
-        <TextView
-            android:id="@+id/location_num_of_beds_tv"
+            android:layout_margin="6dp"
+            android:fontFamily="@font/bubble"
+            android:text="Airport CDG"
+            android:textColor="#16A1E2"
+            android:textSize="18sp"/>
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:textColor="@color/mapboxPurpleDark10"
-            android:textSize="14sp"/>
+            android:orientation="horizontal">
+
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+
+                android:src="@drawable/mapbox_marker_icon_default"/>
+
+            <TextView
+                android:id="@+id/Tvlocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/annie_use_your_telescope"
+
+                android:text="france"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="8dp"
+                android:src="@drawable/coordinates_2"/>
+
+            <TextView
+                android:id="@+id/Tvcoordinates"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/annie_use_your_telescope"
+                android:layout_marginLeft="3dp"
+                android:text="-1000"/>
+        </LinearLayout>
 
     </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_seemore"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="5dp"
+            android:onClick="SeemoreFn"
+            android:background="@drawable/button"/>
+
+    </LinearLayout>
+
+
 
 
 </androidx.cardview.widget.CardView>

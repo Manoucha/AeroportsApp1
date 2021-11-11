@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class Datum {
+public class DatumTaf {
 
     @SerializedName("forecast")
     @Expose

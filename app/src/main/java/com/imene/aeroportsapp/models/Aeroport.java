@@ -1,33 +1,32 @@
 package com.imene.aeroportsapp.models;
 
-import com.imene.aeroportsapp.models.metar.Datum;
-import com.imene.aeroportsapp.models.taf.Taf;
+import com.imene.aeroportsapp.models.taf.DatumTaf;
 
 import java.util.List;
 
 public class Aeroport {
 
 
-    public List<Datum> metarData;
+    public List<com.imene.aeroportsapp.models.metar.Datum> metarData;
 
-    public List<Taf> tafData;
+    public List<DatumTaf> tafData;
 
     public Aeroport() {
     }
 
-    public List<Datum> getMetarData() {
+    public List<com.imene.aeroportsapp.models.metar.Datum> getMetarData() {
         return metarData;
     }
 
-    public void setMetarData(List<Datum> metarData) {
+    public void setMetarData(List<com.imene.aeroportsapp.models.metar.Datum> metarData) {
         this.metarData = metarData;
     }
 
-    public List<Taf> getTafData() {
+    public List<DatumTaf> getTafData() {
         return tafData;
     }
 
-    public void setTafData(List<Taf> tafData) {
+    public void setTafData(List<DatumTaf> tafData) {
         this.tafData = tafData;
     }
 }

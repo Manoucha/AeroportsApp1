@@ -1,11 +1,13 @@
 package com.imene.aeroportsapp;
 
+import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.LinearSnapHelper;
@@ -16,6 +18,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,11 +37,13 @@ import com.mapbox.mapboxsdk.maps.Style;
 import com.mapbox.mapboxsdk.style.layers.SymbolLayer;
 import com.mapbox.mapboxsdk.style.sources.GeoJsonSource;
 
+import java.security.AccessController;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconAllowOverlap;
+import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconIgnorePlacement;
 import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconImage;
 import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconOffset;
 
@@ -47,20 +52,19 @@ public class RecylerViewMapFragment extends Fragment implements OnMapReadyCallba
     private static final String SYMBOL_ICON_ID = "SYMBOL_ICON_ID";
     private static final String SOURCE_ID = "SOURCE_ID";
     private static final String LAYER_ID = "LAYER_ID";
+    private static final String ICON_ID = "ICON_ID";
+
     public MapboxMap mapboxMap;
     private MapView mapView;
     private FeatureCollection featureCollection;
 
-    private LatLng[] coordinates = new LatLng[] {
-            new LatLng(-34.6054099, -58.363654800000006),
-            new LatLng(-34.6041508, -58.38555650000001),
-            new LatLng(-34.6114412, -58.37808899999999),
-            new LatLng(-34.6097604, -58.382064000000014),
-            new LatLng(-34.596636, -58.373077999999964),
-            new LatLng(-34.590548, -58.38256609999996),
-            new LatLng(-34.5982127, -58.38110440000003)
-    };
+    ArrayList<LatLng> coordinates = new ArrayList();
+    List<Feature> symbolLayerIconFeatureList = new ArrayList<>();
+    List<Datum> liste;
     View v;
+
+
+    public static Context context;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -75,18 +79,29 @@ public class RecylerViewMapFragment extends Fragment implements OnMapReadyCallba
 
 // This contains the MapView in XML and needs to be called after the access token is configured.
             //get the liste
-        List<Datum> liste = ((MyApplication) getActivity().getApplication()).getListe();
+        liste = ((MyApplication) getActivity().getApplication()).getListe();
 
-        Log.d("liste: ",liste.get(0).getStation().name);
-
-// Initialize the map view
+        Log.d("liste: ", String.valueOf(liste.size()));
+        //la 2eme c la latitude
+        // Initialize the map view
         mapView = v.findViewById(R.id.mapView1);
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
+        context = getContext();
 
-
+        for(Datum d : liste)
+        {
+            coordinates.add(new LatLng(d.getStation().geometry.coordinates.get(1),d.getStation().geometry.coordinates.get(0)));
+            symbolLayerIconFeatureList.add(Feature.fromGeometry(
+                    Point.fromLngLat(d.getStation().geometry.coordinates.get(0), d.getStation().geometry.coordinates.get(1))));
+        }
 
         return v;
+    }
+
+    public void SeemoreFn(View v)
+    {
+        Toast.makeText(getContext(), "Clicked on Button", Toast.LENGTH_LONG).show();
     }
     private void initFeatureCollection() {
         List<Feature> featureList = new ArrayList<>();
@@ -110,7 +125,7 @@ public class RecylerViewMapFragment extends Fragment implements OnMapReadyCallba
     }
     private void initMarkerIcons(@NonNull Style loadedMapStyle) {
         loadedMapStyle.addImage(SYMBOL_ICON_ID, BitmapFactory.decodeResource(
-                this.getResources(), R.drawable.mapbox_marker_icon_default));
+                getContext().getResources(), R.drawable.mapbox_marker_icon_default));
         loadedMapStyle.addSource(new GeoJsonSource(SOURCE_ID, featureCollection));
         loadedMapStyle.addLayer(new SymbolLayer(LAYER_ID, SOURCE_ID).withProperties(
                 iconImage(SYMBOL_ICON_ID),
@@ -120,12 +135,15 @@ public class RecylerViewMapFragment extends Fragment implements OnMapReadyCallba
     }
     private List<SingleRecyclerViewLocation> createRecyclerViewLocations() {
         ArrayList<SingleRecyclerViewLocation> locationList = new ArrayList<>();
-        for (int x = 0; x < coordinates.length; x++) {
+        for (int x = 0; x < liste.size(); x++) {
             SingleRecyclerViewLocation singleLocation = new SingleRecyclerViewLocation();
-            singleLocation.setName(String.format(getString(R.string.rv_card_name), x));
-            singleLocation.setBedInfo(String.format(getString(R.string.rv_card_bed_info),
-                    new Random().nextInt(coordinates.length)));
-            singleLocation.setLocationCoordinates(coordinates[x]);
+            singleLocation.setName(liste.get(x).getStation().getName());
+            singleLocation.setLocation(liste.get(x).getStation().getLocation());
+            singleLocation.setCoord(liste.get(x).getStation().getGeometry().getCoordinates().toString());
+
+
+                    new Random().nextInt(coordinates.size());
+            singleLocation.setLocationCoordinates(coordinates.get(x));
             locationList.add(singleLocation);
         }
         return locationList;
@@ -178,13 +196,37 @@ public class RecylerViewMapFragment extends Fragment implements OnMapReadyCallba
     @Override
     public void onMapReady(@NonNull MapboxMap mapboxMap) {
         this.mapboxMap = mapboxMap;
-        mapboxMap.setStyle(Style.DARK, new Style.OnStyleLoaded() {
+        mapboxMap.setStyle((new Style.Builder().fromUri("mapbox://styles/mapbox/cjf4m44iw0uza2spb3q0a7s41")
+
+// Add the SymbolLayer icon image to the map style
+                .withImage(ICON_ID, BitmapFactory.decodeResource(
+                        getActivity().getResources(), R.drawable.mapbox_marker_icon_default))
+
+// Adding a GeoJson source for the SymbolLayer icons.
+                .withSource(new GeoJsonSource(SOURCE_ID,
+                        FeatureCollection.fromFeatures(symbolLayerIconFeatureList)))
+
+
+// Adding the actual SymbolLayer to the map style. An offset is added that the bottom of the red
+// marker icon gets fixed to the coordinate, rather than the middle of the icon being fixed to
+// the coordinate point. This is offset is not always needed and is dependent on the image
+// that you use for the SymbolLayer icon.
+                .withLayer(new SymbolLayer(LAYER_ID, SOURCE_ID)
+                        .withProperties(
+                                iconImage(ICON_ID),
+                                iconAllowOverlap(true),
+                                iconIgnorePlacement(true)
+                        )
+                )), new Style.OnStyleLoaded() {
             @Override
             public void onStyleLoaded(@NonNull Style style) {
+
+// Map is set up and the style has loaded. Now you can add additional data or make other map adjustments.
                 initFeatureCollection();
-                initMarkerIcons(style);
+               // initMarkerIcons(style);
                 initRecyclerView();
                 Toast.makeText(getActivity(), R.string.toast_instruction, Toast.LENGTH_SHORT).show();
+
             }
         });
     }
@@ -197,6 +239,24 @@ public class RecylerViewMapFragment extends Fragment implements OnMapReadyCallba
         private String name;
         private String bedInfo;
         private LatLng locationCoordinates;
+        private  String location;
+        private  String coord;
+
+        public String getLocation() {
+            return location;
+        }
+
+        public void setLocation(String location) {
+            this.location = location;
+        }
+
+        public String getCoord() {
+            return coord;
+        }
+
+        public void setCoord(String coord) {
+            this.coord = coord;
+        }
 
         public String getName() {
             return name;
@@ -238,6 +298,8 @@ public class RecylerViewMapFragment extends Fragment implements OnMapReadyCallba
         public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View itemView = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.rv_on_top_of_map_card, parent, false);
+
+
             return new MyViewHolder(itemView);
         }
 
@@ -245,16 +307,40 @@ public class RecylerViewMapFragment extends Fragment implements OnMapReadyCallba
         public void onBindViewHolder(MyViewHolder holder, int position) {
             SingleRecyclerViewLocation singleRecyclerViewLocation = locationList.get(position);
             holder.name.setText(singleRecyclerViewLocation.getName());
-            holder.numOfBeds.setText(singleRecyclerViewLocation.getBedInfo());
+            holder.Tvlocation.setText(singleRecyclerViewLocation.getLocation());
+            holder.TvCoordinates.setText(singleRecyclerViewLocation.getCoord());
+
+            holder.btn_seemore.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View view) {
+                    System.out.println("heeeeeeeeee"+position);
+
+                    MainActivity activity = (MainActivity)view.getContext();
+                    FragmentManager manager = activity.getSupportFragmentManager();
+
+                    MainFragment nextFrag= new MainFragment();
+
+                    manager.beginTransaction()
+                            .replace(R.id.contentContainer, nextFrag, "findThisFragment")
+                            .addToBackStack(null)
+                            .commit();
+                }
+            });
+
             holder.setClickListener(new ItemClickListener() {
                 @Override
                 public void onClick(View view, int position) {
                     LatLng selectedLocationLatLng = locationList.get(position).getLocationCoordinates();
                     CameraPosition newCameraPosition = new CameraPosition.Builder()
                             .target(selectedLocationLatLng)
-                            .zoom(15)
+                            .zoom(12)
                             .build();
+
                     map.easeCamera(CameraUpdateFactory.newCameraPosition(newCameraPosition));
+
+
+
                 }
             });
         }
@@ -265,16 +351,17 @@ public class RecylerViewMapFragment extends Fragment implements OnMapReadyCallba
         }
 
         static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-            TextView name;
-            TextView numOfBeds;
+            TextView name,Tvlocation,TvCoordinates;
             CardView singleCard;
-            ItemClickListener clickListener;
-
+            ItemClickListener clickListener,clickListener1;
+            Button btn_seemore;
             MyViewHolder(View view) {
                 super(view);
                 name = view.findViewById(R.id.location_title_tv);
-                numOfBeds = view.findViewById(R.id.location_num_of_beds_tv);
+                Tvlocation = view.findViewById(R.id.Tvlocation);
+                TvCoordinates = view.findViewById(R.id.Tvcoordinates);
                 singleCard = view.findViewById(R.id.single_location_cardview);
+                btn_seemore = view.findViewById(R.id.btn_seemore);
                 singleCard.setOnClickListener(this);
             }
 
@@ -282,12 +369,16 @@ public class RecylerViewMapFragment extends Fragment implements OnMapReadyCallba
                 this.clickListener = itemClickListener;
             }
 
+
+
             @Override
             public void onClick(View view) {
                 clickListener.onClick(view, getLayoutPosition());
             }
+
         }
     }
+
 
     public interface ItemClickListener {
         void onClick(View view, int position);

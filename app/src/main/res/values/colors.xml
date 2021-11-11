@@ -7,4 +7,13 @@
     <color name="mapboxYellowFaint">#FCFCDF</color>
     <color name="mapboxPurpleDark10">#5E3AD2</color>
 
+    <!-- Array of colors that will be used by ViewPager as background colors -->
+    <array name="colorPagesViewPager">
+        <item>#EDD9CF</item>
+        <item>#BED4D6</item>
+        <item>#ADCEB7</item>
+        <item>#F7CF8B</item>
+        <item>#FD96A2</item>
+    </array>
+
 </resources>
