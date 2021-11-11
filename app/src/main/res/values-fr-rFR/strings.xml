@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Airport Finder</string>
-    <string name="splash">À vousd de découvrir</string>
+    <string name="splash">À vous de découvrir</string>
     <string name="bot1">Aeroport</string>
     <string name="bot2">Carte</string>
     <string name="bot3">Historique</string>
@@ -11,8 +11,8 @@
     <string name="taf">TAF</string>
     <string name="Country">Pays</string>
     <string name="oaci">OACI</string>
-    <string name="iata">IATA</string>
-    <string name="statut">Statut</string>
+    <string name="iata">Coordonnées</string>
+    <string name="statut">Observé</string>
     <string name="location">Localisation</string>
     <string name="temp">Temp</string>
     <string name="pression">Pression</string>
@@ -20,7 +20,7 @@
     <string name="dewpoints">Points de rosée</string>
     <string name="wind">Vent</string>
     <string name="cloud">Nuages</string>
-    <string name="question">Quel aeropot cherchez vous?</string>
+    <string name="question">Quel aéroport cherchez vous?</string>
     <string name="searchbtn">Chercher</string>
     <string name="winds">Vent</string>
     <string name="clouds">Nuages</string>

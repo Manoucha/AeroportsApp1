@@ -168,15 +168,14 @@
                     android:background="#E2DEEA"
                     android:orientation="horizontal">
                     <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="20dp"
+                        android:layout_width="28dp"
+                        android:layout_height="19dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/mapbox_marker_icon_default"/>
+                        android:src="@drawable/map"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/iata"
-                        android:layout_marginEnd="10dp"
                         android:fontFamily="@font/annie_use_your_telescope"/>
                 </LinearLayout>
 
@@ -268,7 +267,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/location"
-                        android:layout_marginEnd="10dp"
                         android:fontFamily="@font/annie_use_your_telescope"/>
                 </LinearLayout>
 
@@ -302,7 +300,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardviewMetar"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="320dp"
         android:layout_margin="10dp"
         android:padding="10dp">
 
@@ -494,6 +492,7 @@
 
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/laytouWind"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -593,6 +592,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+
                 android:layout_marginEnd="10dp"
                 android:orientation="horizontal">
                 <LinearLayout

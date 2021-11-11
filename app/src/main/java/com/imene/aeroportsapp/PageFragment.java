@@ -177,7 +177,7 @@ public class PageFragment extends Fragment {
     } ;
     final Gson gson = new Gson();
 
-    LinearLayout linearLayoutVFR;
+    LinearLayout linearLayoutVFR,laytouWind;
 
     public PageFragment() { }
 
@@ -245,8 +245,8 @@ public class PageFragment extends Fragment {
         tvCountry.setText(liste.get(position).getStation().getLocation());
         tvICAO.setText(liste.get(position).getIcao());
 
-//        tvIATA.setText(listeStations.get(position).getIata());
-       // tvStatus.setText(listeStations.get(position).getStatus());
+       tvIATA.setText(liste.get(position).getStation().getGeometry().getCoordinates()+"");
+        tvStatus.setText(liste.get(position).getObserved());
         tvLOCATION.setText(liste.get(position).getStation().getGeometry().getCoordinates().toString());
 
         //***************** Données Metar
@@ -258,7 +258,7 @@ public class PageFragment extends Fragment {
         linearLayoutVFR = result.findViewById(R.id.linearLayoutVFR);
         tvVFR = result.findViewById(R.id.tvVFR);
 
-
+        laytouWind =result.findViewById(R.id.laytouWind);
 
 
         tvTemperature = result.findViewById(R.id.tvTemperature);
@@ -276,10 +276,49 @@ public class PageFragment extends Fragment {
         {
             linearLayoutVFR.setBackgroundColor(Color.RED);
         }
-        tvTemperature.setText(liste.get(position).getTemperature().celsius+" °C"+" ( "+liste.get(position).getTemperature().fahrenheit+" °F )");
-        tvDewpoint.setText(liste.get(position).getDewpoint().celsius+" °C"+" ( "+liste.get(position).getDewpoint().fahrenheit+" °F )");
-        tvpression.setText(liste.get(position).getBarometer().getHg()+" inches Hg ( "+liste.get(position).getBarometer().getMb()+ " mb )");
-        tvWind.setText(liste.get(position).getWind().getDegrees()+" degrees "+"at "+ liste.get(position).getWind().getSpeed_mph() +" MPH ");
+else if (liste.get(position).getFlight_category().equals("LIFR"))
+        {
+            linearLayoutVFR.setBackgroundColor(Color.MAGENTA);
+        }
+        else if (liste.get(position).getFlight_category().equals("MVFR"))
+        {
+            linearLayoutVFR.setBackgroundColor(Color.BLUE);
+        }
+        if(liste.get(position).getBarometer() != null)
+        {
+            tvpression.setText(liste.get(position).getBarometer().getHg()+" inches Hg ( "+liste.get(position).getBarometer().getMb()+ " mb )");
+
+        }else {
+            tvpression.setVisibility(View.GONE);
+        }
+
+
+        if(liste.get(position).getDewpoint() != null)
+        {
+            tvDewpoint.setText(liste.get(position).getDewpoint().celsius+" °C"+" ( "+liste.get(position).getDewpoint().fahrenheit+" °F )");
+
+        }else {
+            tvDewpoint.setVisibility(View.GONE);
+        }
+
+      if(liste.get(position).getTemperature() != null)
+      {
+          tvTemperature.setText(liste.get(position).getTemperature().celsius+" °C"+" ( "+liste.get(position).getTemperature().fahrenheit+" °F )");
+
+      }else {
+          tvTemperature.setVisibility(View.GONE);
+      }
+
+        if(liste.get(position).getWind()!=null)
+        {
+            tvWind.setText(liste.get(position).getWind().getDegrees()+" degrees "+"at "+ liste.get(position).getWind().getSpeed_mph() +" MPH ");
+
+        }
+        else
+        {
+            laytouWind.setVisibility(View.GONE);
+        }
+
         //30 sm ( 48 km)
 
         String beforeFirstDot = liste.get(position).getVisibility().getMeters().split("\\,")[0];

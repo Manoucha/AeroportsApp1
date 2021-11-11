@@ -19,8 +19,8 @@
     <string name="taf">TAF</string>
     <string name="Country">Country</string>
     <string name="oaci">ICAO</string>
-    <string name="iata">IATA</string>
-    <string name="statut">Status</string>
+    <string name="iata">Coordinates</string>
+    <string name="statut">Observed</string>
     <string name="location">Location</string>
     <string name="temp">Temp</string>
     <string name="dewpoints">Dewpoints</string>
